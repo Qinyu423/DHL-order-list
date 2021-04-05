@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import { getParcels } from "./httprequest.js";
+import { getParcels } from "./HttpRequest.js";
 // state concept and hook concept
 import React, { useState, useEffect } from 'react';
+import OrderInformation from "./OrderInformation.js";
 
 function App() {
 const [data, setData] = useState([]);
@@ -20,29 +21,14 @@ useEffect(() => {
 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-
-  <div className="wrapper">
+    <div className="orderList">
+      <div className="wrapper">
      <h1>DHL order list</h1>
-     <ul>
-       {data.map(item => <li key={item}>{item}</li>)}
-     </ul>
+       {data.map(item =>
+         <OrderInformation id={item.id} parcel_id={item.parcel_id} status={item.status} eta={item.eta} 
+         pickupLocations={item.location_id} sender={item.sender} user_phone={item.user_phone} 
+         user_name={item.user_name}></OrderInformation>)}
    </div>
-
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
     </div>
   );
 }
